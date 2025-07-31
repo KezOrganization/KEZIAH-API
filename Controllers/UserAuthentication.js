@@ -59,11 +59,13 @@ export const register = async (req, res) => {
 // ==============================
 export const verifyOTP = async (req, res) => {
   try {
-    const { email, otp } = req.body;
+    const { otp } = req.body;
 
-    const user = await User.findOne({ email });
+    // Find the user by OTP code
+    const user = await User.findOne({ 'otp.code': otp });
+
     if (!user) {
-      return res.status(400).json({ message: 'User not found' });
+      return res.status(400).json({ message: 'Invalid or expired OTP' });
     }
 
     if (user.isVerified) {
@@ -71,13 +73,13 @@ export const verifyOTP = async (req, res) => {
     }
 
     if (
-      user.otp.code !== otp ||
       !user.otp.expiresAt ||
       user.otp.expiresAt < new Date()
     ) {
-      return res.status(400).json({ message: 'Invalid or expired OTP' });
+      return res.status(400).json({ message: 'OTP has expired' });
     }
 
+    // Mark user as verified
     user.isVerified = true;
     user.otp = undefined;
     await user.save();
@@ -264,6 +266,17 @@ export const deleteUserAccount = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Server error while deleting account' });
   }
+};
+
+//logout a user
+export const logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Logout failed' });
+    }
+    res.clearCookie('connect.sid'); 
+    res.json({ message: 'Logged out successfully' });
+  });
 };
 
 

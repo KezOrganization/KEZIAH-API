@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -28,7 +29,17 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(express.json());
 app.use(cors());
 
-
+// Session Setup
+app.use(session({
+  secret: 'your-secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false, // Set to true in production with HTTPS
+    maxAge: 1000 * 60 * 60 // 1 hour
+  }
+}));
 
 
 

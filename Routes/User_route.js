@@ -4,7 +4,8 @@ import {
   verifyOTP,
   login,
   forgotPassword,
-  resetPassword, getUserProfile, updateUserProfile, deleteUserAccount}  from '../Controllers/UserAuthentication.js';
+  resetPassword, getUserProfile, updateUserProfile, deleteUserAccount,
+  logout}  from '../Controllers/UserAuthentication.js';
 
   import { protect, adminOnly } from '../Middleware/authen_users.js';
 const userRoute = express.Router();
@@ -17,6 +18,8 @@ userRoute.post('/verify-otp', verifyOTP);
 
 // @route   POST /api/auth/login
 userRoute.post('/login', login);
+
+userRoute.post('/logout', logout)
 
 // @route   POST /api/auth/forgot-password
 userRoute.post('/forgot-password', forgotPassword);
