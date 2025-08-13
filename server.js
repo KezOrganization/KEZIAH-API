@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import { seedAdmin } from "./Middleware/Admin_seeder.js";
-import userRoute from "./Routes/User_route.js";
+import router from "./Routes/User_route.js";
 import cartRoute from "./Routes/Cart_route.js";
 import productRoute from "./Routes/Product_routes.js";
 
@@ -44,7 +44,7 @@ app.use(session({
 
 
 // API Routes
-app.use('/api/auth', userRoute);
+app.use('/api/auth', router);
 app.use('/api/cart', cartRoute);
 app.use('/api/products', productRoute)
 // Global Error Handler

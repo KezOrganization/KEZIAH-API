@@ -8,13 +8,13 @@ const cartRoute = express.Router();
 cartRoute.use(protect);
 
 // Add item to cart
-cartRoute.post('/add', addToCart);
+cartRoute.post('/add/:productId', addToCart);
 
 // Get user's cart
 cartRoute.get('/', getMyCart);
 
 // Update item quantity in cart
-cartRoute.put('/update', updateCartItem);
+cartRoute.put('/update/:productId', updateCartItem);
 
 // Remove single item from cart
 cartRoute.delete('/remove', removeCartItem);
