@@ -8,7 +8,7 @@ const cartRoute = express.Router();
 cartRoute.use(protect);
 
 // Add item to cart
-cartRoute.post('/add/:productId', addToCart);
+cartRoute.post('/add', addToCart);
 
 // Get user's cart
 cartRoute.get('/', getMyCart);

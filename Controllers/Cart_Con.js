@@ -2,14 +2,19 @@ import { Cart } from '../Models/Cart_Mod.js';
 import { Product } from '../Models/Product_Mod.js';
 
 // Add item to cart
+// Add item to cart
 export const addToCart = async (req, res) => {
   try {
     const userId = req.user._id;
-    const productId = req.params.productId?.toString();  
-    const quantity = parseInt(req.body.quantity, 10) || 1;  
+    const { productId, quantity } = req.body;
 
-    if (!productId) {
-      return res.status(400).json({ message: 'Product ID is required in URL' });
+    if (!productId || !quantity) {
+      return res.status(400).json({ message: 'Product ID and quantity are required' });
+    }
+
+    const parsedQuantity = parseInt(quantity, 10);
+    if (isNaN(parsedQuantity) || parsedQuantity < 1) {
+      return res.status(400).json({ message: 'Quantity must be a positive number' });
     }
 
     const product = await Product.findById(productId);
@@ -22,7 +27,7 @@ export const addToCart = async (req, res) => {
     if (!cart) {
       cart = await Cart.create({
         user: userId,
-        items: [{ product: productId, quantity }]
+        items: [{ product: productId, quantity: parsedQuantity }]
       });
     } else {
       const existingItem = cart.items.find(
@@ -30,9 +35,9 @@ export const addToCart = async (req, res) => {
       );
 
       if (existingItem) {
-        existingItem.quantity += quantity;
+        existingItem.quantity += parsedQuantity;
       } else {
-        cart.items.push({ product: productId, quantity });
+        cart.items.push({ product: productId, quantity: parsedQuantity });
       }
 
       await cart.save();
@@ -44,7 +49,6 @@ export const addToCart = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 
 // Get user's cart
 export const getMyCart = async (req, res) => {
