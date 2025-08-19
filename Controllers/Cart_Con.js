@@ -2,7 +2,6 @@ import { Cart } from '../Models/Cart_Mod.js';
 import { Product } from '../Models/Product_Mod.js';
 
 // Add item to cart
-// Add item to cart
 export const addToCart = async (req, res) => {
   try {
     const userId = req.user._id;

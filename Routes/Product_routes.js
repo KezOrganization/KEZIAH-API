@@ -12,7 +12,8 @@ productRoute.get('/:id', getProductById);
 
 
 // Admin-only routes
-productRoute.post('/', protect, adminOnly, parser.single('image'), createProduct);
+productRoute.post('/',  protect, adminOnly, parser.single('image'), createProduct);
+
 productRoute.put('/:id', protect, adminOnly, parser.single('image'), updateProduct);
 productRoute.delete('/:id', protect, adminOnly, deleteProduct);
 

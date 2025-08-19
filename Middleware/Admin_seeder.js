@@ -9,7 +9,7 @@ export const seedAdmin = async () => {
         firstName: "Comfort",
         lastName: "Parker",
         email: "c39744736@gmail.com",
-        password: "admin123", // Will be hashed by pre-save hook
+        password: "admin123", 
         role: "admin",
         acceptedTerms: true,
         isVerified: true,
