@@ -19,8 +19,8 @@ export const checkoutCart = async (req, res) => {
     });
 
     // Paystack expects amount in kobo (i.e. cents * 100)
-    const paystackAmount = totalAmount * 100;
-
+    const paystackAmount = Math.round(totalAmount * 100);
+    
     // Call Paystack API to initialize payment
     const response = await axios.post(
       "https://api.paystack.co/transaction/initialize",
