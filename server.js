@@ -7,6 +7,7 @@ import { seedAdmin } from "./Middleware/Admin_seeder.js";
 import router from "./Routes/User_route.js";
 import cartRoute from "./Routes/Cart_route.js";
 import productRoute from "./Routes/Product_routes.js";
+import paymentRouter from "./Routes/Payment_route.js";
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use(session({
 app.use('/api/auth', router);
 app.use('/api/cart', cartRoute);
 app.use('/api/products', productRoute)
+app.use('/payment', paymentRouter)
 // Global Error Handler
 
 app.use((err, req, res, next) => {
