@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 export const sendOtpEmail = async (toEmail, otp) => {
   try {
     const info = await transporter.sendMail({
-      from: `"OFFIE ORGANICS PRODUCT" <${process.env.SMTP_USER}>`,
+      from: `"OFIE ORGANICS PRODUCT" <${process.env.SMTP_USER}>`,
       to: toEmail,
       subject: "Your OTP Code",
       html: `
@@ -41,7 +41,7 @@ export const sendOtpEmail = async (toEmail, otp) => {
 export const sendPasswordResetEmail = async (toEmail, resetUrl) => {
   try {
     const info = await transporter.sendMail({
-      from: `"OFFIE ORGANICS PRODUCT" <${process.env.SMTP_USER}>`,
+      from: `"OFIE ORGANICS PRODUCT" <${process.env.SMTP_USER}>`,
       to: toEmail,
       subject: "Password Reset Request",
       html: `
