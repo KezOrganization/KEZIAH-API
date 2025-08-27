@@ -22,7 +22,8 @@ const productSchema = new mongoose.Schema(
         'Face Care',
         'Body Care',
         'Hair Care',
-        "Men's Collection",
+        'Skin Care',
+        'Wholesome Treats',
        
       ],
       index: true,
