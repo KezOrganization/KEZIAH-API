@@ -93,3 +93,9 @@ export const adminLogin = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// logout.js
+export const logout = () => {
+  localStorage.removeItem("token"); // or remove cookie
+  window.location.href = "/login"; // redirect to login page
+};
